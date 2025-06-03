@@ -9,6 +9,7 @@
   },
   "dependencies": {
     "express": "^4.18.2",
-    "@huggingface/tiny-agents": "^0.2.3"
+    "@huggingface/tiny-agents": "^0.2.3",
+    "dotenv": "^16.0.3"
   }
 }

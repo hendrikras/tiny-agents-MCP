@@ -1,5 +1,6 @@
 const express = require('express');
 const { Agent } = require('@huggingface/tiny-agents');
+require('dotenv').config();
 
 const app = express();
 const port = 3000;
@@ -20,10 +21,11 @@ const agent = new Agent({
             command: "npx",
             args: [
                 "mcp-remote",
-                "http://localhost:7860/gradio_api/mcp/sse"  // Your Gradio MCP server
+                process.env.MCP_ENDPOINT || "http://localhost:7860/gradio_api/mcp/sse"  // MCP server endpoint
             ]
         }
     ],
+    capabilities: process.env.MCP_CAPABILITIES ? process.env.MCP_CAPABILITIES.split(',') : ['factorial']
 });
 
 // Connect to MCP server when the app starts
