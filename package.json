@@ -9,6 +9,6 @@
   },
   "dependencies": {
     "express": "^4.18.2",
-    "tinyagents": "^1.0.0"
+    "@huggingface/tiny-agents": "^0.2.3"
   }
 }
