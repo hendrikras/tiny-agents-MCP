@@ -1,0 +1,14 @@
+{
+  "name": "express-mcp-app",
+  "version": "1.0.0",
+  "description": "Node.js Express application connecting to MCP server",
+  "main": "app.js",
+  "scripts": {
+    "start": "node app.js",
+    "test": "echo \"No tests yet\""
+  },
+  "dependencies": {
+    "express": "^4.18.2",
+    "tinyagents": "^1.0.0"
+  }
+}
