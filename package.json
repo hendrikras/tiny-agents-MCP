@@ -4,17 +4,17 @@
   "description": "Node.js Express application connecting to MCP server",
   "main": "app.js",
   "scripts": {
-    "dev": "remix dev",
+    "dev": "node --require dotenv/config app.js",
     "build": "remix build",
-    "start": "remix-serve build",
+    "start": "node app.js",
     "test": "echo \"No tests yet\""
   },
   "dependencies": {
     "express": "^4.18.2",
     "@huggingface/tiny-agents": "^0.2.3",
     "dotenv": "^16.0.3",
-    "@remix-run/express": "^2.8.1",
-    "@remix-run/node": "^2.8.1",
-    "remix-serve": "^2.8.1"
+    "@remix-run/express": "^2.3.1",
+    "@remix-run/node": "^2.3.1",
+    "@remix-run/dev": "^2.3.1"
   }
 }
