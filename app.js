@@ -53,6 +53,11 @@ connectAgent();
 // Serve static files from the public directory
 app.use(express.static('public'));
 
+// Redirect root to the index route
+app.get('/', (req, res) => {
+    res.redirect('/index');
+});
+
 // API routes
 app.get('/api', (req, res) => {
     res.send('Hello from Express API!');
