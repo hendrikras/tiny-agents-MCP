@@ -59,10 +59,6 @@ app.get('/', (req, res) => {
 });
 
 // API routes
-app.get('/api', (req, res) => {
-    res.send('Hello from Express API!');
-});
-
 app.get('/api/sentiment/:phrase', async (req, res) => {
     try {
         // Check if agent is connected
