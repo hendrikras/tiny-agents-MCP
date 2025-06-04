@@ -1,17 +1,17 @@
 const express = require('express');
 const { Agent } = require('@huggingface/tiny-agents');
 require('dotenv').config();
+const { createRequestHandler } = require('@remix-run/express');
 
 const app = express();
 const port = 3000;
 
-
+// MCP agent configuration remains the same
 const agent = new Agent({
     provider: process.env.PROVIDER ?? "nebius",
     model: process.env.MODEL_ID ?? "Qwen/Qwen2.5-72B-Instruct",
     apiKey: process.env.HF_TOKEN,
     servers: [
-        // ... existing servers ...
         {
             command: "npx",
             args: [
@@ -26,11 +26,9 @@ const agent = new Agent({
 // Connect to MCP server when the app starts
 let agentConnected = false;
 
-// File: /Users/hendrik/projects/njsDoctool/app.js
 async function connectAgent() {
     try {
-        // The Agent class might not have a connect method directly
-        // Instead, we'll check if the agent is ready by accessing a property or method that exists
+        // Check if agent is connected
         if (agent.status) {
             console.log('Successfully connected to MCP server');
             agentConnected = true;
@@ -42,8 +40,7 @@ async function connectAgent() {
         }
     } catch (error) {
         console.error('Failed to connect to MCP server:', error);
-    }
-    finally {
+    } finally {
         await agent.loadTools();
     }
 }
@@ -104,6 +101,13 @@ res.send({
     }
 });
 
-app.listen(port, () => {
-    console.log(`Express app listening at http://localhost:${port}`);
+// Load Remix routes
+const remixHandler = createRequestHandler({
+    build: require('@remix-run/dev').createAppHandler({
+        build: require('./build'),
+        getLoadContext: () => ({ agent, agentConnected })
+    })
 });
+
+// Use Remix routes
+app.all('*', remixHandler);
